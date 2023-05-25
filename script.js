@@ -1,26 +1,33 @@
 const weatherContainer = document.getElementById("weatherContainer");
+let count = 1;
+weatherContainer.addEventListener('click', changeBG);
 
+function changeBG(){
+  if (count>4) {count=1};
+  const srcLink = `./img/gif${count}.gif`
+  weatherContainer.style.backgroundImage = "url(" + srcLink + ")";
+  count++;
+
+
+}
 
 getIp();
 async function getIp() {
   const response = await fetch("https://get.geojs.io/v1/ip/geo.json");
   const obj = await response.json();
-  // console.log(obj);
   const { city, latitude, longitude } = obj;
   getWeather(city, latitude, longitude);
-  // console.log(city + " " + latitude + " " + longitude);
+  get3DaysWeather(city, latitude, longitude);
 }
 
 async function getWeather(city, latitude, longitude) {
-  console.log(city + " " + latitude + " " + longitude);
   const response = await fetch(
     `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&hourly=temperature_2m,relativehumidity_2m,windspeed_10m`
   );
   const weather = await response.json();
-  // console.log(weather);
   const { temperature, windspeed, weathercode } = weather.current_weather;
-  // console.log(temperature + " " + windspeed + " " + winddirection + " " + weathercode);
   renderWeather(city, temperature, windspeed, weathercode);
+  // console.log(weather);
 }
 
 async function renderWeather(city, temperature, windspeed, weathercode){
@@ -34,7 +41,7 @@ async function renderWeather(city, temperature, windspeed, weathercode){
   ${temperature}</div>
   <div id="windspeed">
   <img src="./img/wind.png" alt="windSpeed" class="wind">   
-  <p>Wind speed:<br> ${windspeed} m/s </p>   
+  <p>Wind speed:<br> ${windspeed} km/h </p>   
   </div>
   <div id="weatherDescr">${weatherDescr}</div>
   `;
@@ -111,3 +118,4 @@ function getWeatherByCode(weathercode) {
 //   is_day: 1,
 //   time: '2023-05-25T16:00'
 // },
+
