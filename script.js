@@ -26,15 +26,20 @@ async function getWeather(city, latitude, longitude) {
 async function renderWeather(city, temperature, windspeed, weathercode){
   const weatherDescr = getWeatherByCode(weathercode);
   const element =`
-  <div id="city">${city}</div>
-  <div id="temperature">${temperature}</div>
-  <div id="windspeed">${windspeed}</div>
+  <div id="city">
+  <img src="./img/geo.png" alt="geo" class="geo">
+  ${city}</div>
+  <div id="temperature">
+  <img src="./img/temp2.png" alt="temperature" class="temp">
+  ${temperature}</div>
+  <div id="windspeed">
+  <img src="./img/wind.png" alt="windSpeed" class="wind">   
+  <p>Wind speed:<br> ${windspeed} m/s </p>   
+  </div>
   <div id="weatherDescr">${weatherDescr}</div>
   `;
-  console.log(weatherDescr);
-  console.log(element);
-  weatherContainer.insertAdjacentHTML("afterbegin",element);
 
+  weatherContainer.insertAdjacentHTML("afterbegin",element);
 }
 
 function getWeatherByCode(weathercode) {
