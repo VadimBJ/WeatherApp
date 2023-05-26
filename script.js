@@ -1,14 +1,14 @@
 const weatherContainer = document.getElementById("weatherContainer");
-let count = 1;
-weatherContainer.addEventListener('click', changeBG);
+let count = 2;
+weatherContainer.addEventListener("click", changeBG);
 
-function changeBG(){
-  if (count>4) {count=1};
-  const srcLink = `./img/gif${count}.gif`
+function changeBG() {
+  if (count > 4) {
+    count = 1;
+  }
+  const srcLink = `./img/gif${count}.gif`;
   weatherContainer.style.backgroundImage = "url(" + srcLink + ")";
   count++;
-
-
 }
 
 getIp();
@@ -27,17 +27,16 @@ async function getWeather(city, latitude, longitude) {
   const weather = await response.json();
   const { temperature, windspeed, weathercode } = weather.current_weather;
   renderWeather(city, temperature, windspeed, weathercode);
-  // console.log(weather);
 }
 
-async function renderWeather(city, temperature, windspeed, weathercode){
+async function renderWeather(city, temperature, windspeed, weathercode) {
   const weatherDescr = getWeatherByCode(weathercode);
-  const element =`
+  const element = `
   <div id="city">
   <img src="./img/geo.png" alt="geo" class="geo">
   ${city}</div>
   <div id="temperature">
-  <img src="./img/temp2.png" alt="temperature" class="temp">
+  <img src="./img/temp.png" alt="temperature" class="temp">
   ${temperature}</div>
   <div id="windspeed">
   <img src="./img/wind.png" alt="windSpeed" class="wind">   
@@ -46,7 +45,7 @@ async function renderWeather(city, temperature, windspeed, weathercode){
   <div id="weatherDescr">${weatherDescr}</div>
   `;
 
-  weatherContainer.insertAdjacentHTML("afterbegin",element);
+  weatherContainer.insertAdjacentHTML("afterbegin", element);
 }
 
 function getWeatherByCode(weathercode) {
@@ -62,51 +61,51 @@ function getWeatherByCode(weathercode) {
     case 45:
       return "Fog";
     case 48:
-      return "Depositing rime fog";
+      return "Depositing<br>rime fog";
     case 51:
-      return "Drizzle: light intensity";
+      return "Drizzle:<br>light intensity";
     case 53:
-      return "Drizzle: moderate intensity";
+      return "Drizzle:<br>moderate intensity";
     case 55:
-      return "Drizzle: dense intensity";
+      return "Drizzle:<br>dense intensity";
     case 56:
-      return "Freezing Drizzle: light intensity";
+      return "Freezing Drizzle:<br>light intensity";
     case 57:
-      return "Freezing Drizzle: dense intensity";
+      return "Freezing Drizzle:<br>dense intensity";
     case 61:
-      return "Rain: slight intensity";
+      return "Rain:<br>slight intensity";
     case 63:
-      return "Rain: moderate intensity";
+      return "Rain:<br>moderate intensity";
     case 65:
-      return "Rain: heavy intensity";
+      return "Rain:<br>heavy intensity";
     case 66:
-      return "Freezing Rain: light intensity";
+      return "Freezing Rain:<br>light intensity";
     case 67:
-      return "Freezing Rain: heavy intensity";
+      return "Freezing Rain:<br>heavy intensity";
     case 71:
-      return "Snow fall: slight intensity";
+      return "Snow fall:<br>slight intensity";
     case 73:
-      return "Snow fall: moderate intensity";
+      return "Snow fall:<br>moderate intensity";
     case 75:
-      return "Snow fall: heavy intensity";
+      return "Snow fall:<br>heavy intensity";
     case 77:
       return "Snow grains";
     case 80:
-      return "Rain showers: slight";
+      return "Rain showers:<br>slight";
     case 81:
-      return "Rain showers: moderate";
+      return "Rain showers:<br>moderate";
     case 82:
-      return "Rain showers: violent";
+      return "Rain showers:<br>violent";
     case 85:
-      return "Snow showers: slight";
+      return "Snow showers:<br>slight";
     case 86:
-      return "Snow showers: heavy";
+      return "Snow showers:<br>heavy";
     case 95:
       return "Thunderstorm";
     case 96:
-      return "Thunderstorm with slight hail";
+      return "Thunderstorm<br>with slight hail";
     case 99:
-      return "Thunderstorm with heavy hail";
+      return "Thunderstorm<br>with heavy hail";
   }
 }
 
@@ -118,4 +117,3 @@ function getWeatherByCode(weathercode) {
 //   is_day: 1,
 //   time: '2023-05-25T16:00'
 // },
-
